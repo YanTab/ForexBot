@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environnement
+.env
+.env.*
+!.env.example
+
+# Secrets & sécurité
+security/keys/
+security/*.key
+security/*.pem
+*.secret
+
+# Logs (volumeux, pas versionnés)
+logs/**/*.log
+logs/**/*.csv
+!logs/.gitkeep
+
+# Reports générés
+reports/daily/*.json
+reports/daily/*.csv
+reports/weekly/*.json
+reports/monthly/*.json
+reports/fiscal_ES/*.json
+
+# Sandbox résultats
+sandbox/validation/results/
+
+# IB connexion
+*.xml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & outils
+.vscode/settings.json
+.idea/
+*.swp
+.claude/
