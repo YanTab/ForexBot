@@ -14,22 +14,28 @@ Objectif : donner à une IA la carte complète du système, claire, modulaire, e
 ## 1. **Structure générale**
 ```
 /core
-    /data_pipeline
-    /indicator_pipeline
-    /risk_engine
-    /order_engine
-    /execution_quality
-    /safety_mode
+    /data_pipeline       ← ingestion, nettoyage, validation, sync
+    /indicators          ← z-score, volatilité, spread, microstructure, cache
+    /risk_engine         ← sizing, stops, limites journalières
+    /order_engine        ← envoi ordres, slippage, smart cancellation
+    /safety_engine       ← isolation, watchdog, safety mode
+    /reporting_engine    ← rapports daily/weekly/monthly/fiscal
 
 /modules
-    /module_X
-    /module_Y
-    ...
+    /mean_reversion
+    /timing
+    /volatility
+    /spread_filter
+    /latency_filter
+    /execution_quality
+    /risk_adapter
 
 /strategies
-    /strategy_X
-    /strategy_Y
-    ...
+    /mean_reversion_strategy
+    /timing_strategy
+
+/broker
+    /interactive_brokers ← connecteur IB (ib_insync), simulation + production
 
 /config
     global_config.yaml
@@ -37,19 +43,10 @@ Objectif : donner à une IA la carte complète du système, claire, modulaire, e
     /strategies
 
 /logs
-    /daily
-    /weekly
-    /monthly
-    /system
-    /errors
-    /security
     /trades
     /decisions
-    /risk
-    /data
-    /latency
-    /modules
-    /strategies
+    /errors
+    /system
 
 /reports
     /daily
@@ -57,8 +54,13 @@ Objectif : donner à une IA la carte complète du système, claire, modulaire, e
     /monthly
     /fiscal_ES
 
+/sandbox
+    /tests
+        /unit
+        /integration
+    /validation
+
 /updates
-    /sandbox
     /versions
 
 /security
@@ -249,7 +251,25 @@ download → sandbox → validation → install → versioning → rollback
 
 ---
 
-## 12. **Fiscalité Espagne**
+## 12. **Couche Broker**
+Broker cible : **Interactive Brokers** (IB Gateway / TWS)
+
+```
+broker/interactive_brokers/
+    connector.py     ← connexion IB via ib_insync
+    market_data.py   ← abonnement flux temps réel
+    order_handler.py ← envoi / suivi ordres
+    account.py       ← solde, positions, marges
+    config.yaml      ← host, port, client_id, mode (sim/prod)
+```
+
+Modes :
+- `SIMULATION` — Paper Trading IB ou mode mock (pas de connexion réelle)
+- `PRODUCTION` — connexion IB Gateway active (activation explicite requise)
+
+---
+
+## 13. **Fiscalité Espagne**
 Pipeline :
 ```
 trades → conversions EUR → plus/minus values → frais réels → rapport AEAT → archivage annuel
