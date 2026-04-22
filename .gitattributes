@@ -1,0 +1,19 @@
+# Normalise toutes les fins de ligne en LF dans le dépôt
+* text=auto eol=lf
+
+# Fichiers texte explicites
+*.py    text eol=lf
+*.md    text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.json  text eol=lf
+*.txt   text eol=lf
+*.env   text eol=lf
+*.toml  text eol=lf
+
+# Binaires — pas de conversion
+*.png   binary
+*.jpg   binary
+*.ico   binary
+*.key   binary
+*.enc   binary
