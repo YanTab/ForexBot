@@ -1,0 +1,35 @@
+mode: simulation  # simulation | production
+
+timeframe: 5  # minutes par bar
+
+instruments:
+  - symbol: EURUSD
+    pip_size: 0.0001
+    base_price: 1.0800
+  - symbol: GBPUSD
+    pip_size: 0.0001
+    base_price: 1.2700
+  - symbol: USDJPY
+    pip_size: 0.01
+    base_price: 149.50
+  - symbol: USDCHF
+    pip_size: 0.0001
+    base_price: 0.9100
+
+validation:
+  max_gap_seconds: 30
+  max_spread_pips: 5.0
+  min_spread_pips: 0.1
+  max_price_change_pct: 1.0
+
+cleaning:
+  outlier_zscore_threshold: 4.0
+  max_null_ratio: 0.02
+
+normalisation:
+  sync_tolerance_seconds: 2
+
+simulation:
+  daily_volatility_pct: 0.5
+  spread_pips: 0.2
+  random_seed: 42
