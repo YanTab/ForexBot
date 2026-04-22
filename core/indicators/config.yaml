@@ -1,0 +1,17 @@
+zscore:
+  window: 20
+
+volatility:
+  atr_window: 14
+  gk_window: 20
+  realized_window: 20
+
+spread:
+  mean_window: 20
+  threshold_multiplier: 2.0
+
+microstructure:
+  order_flow_window: 10
+
+cache:
+  maxsize: 256
